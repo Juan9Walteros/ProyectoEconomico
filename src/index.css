@@ -5,7 +5,7 @@
 
   color-scheme: light dark;
   color: #213547; /* Texto principal */
-  background-color: #E1EEBC; /* Fondo principal */
+  background-color: #e1eebc; /* Fondo principal */
 
   font-synthesis: none;
   text-rendering: optimizeLegibility;
@@ -19,13 +19,13 @@ body {
   place-items: center;
   min-width: 320px;
   min-height: 100vh;
-  background-color: #E1EEBC; /* Fondo principal */
+  background-color: #e1eebc; /* Fondo principal */
 }
 
 h1 {
   font-size: 3.2em;
   line-height: 1.1;
-  color: #328E6E; /* Verde oscuro */
+  color: #328e6e; /* Verde oscuro */
 }
 
 button {
@@ -35,14 +35,14 @@ button {
   font-size: 1em;
   font-weight: 500;
   font-family: inherit;
-  background-color: #67AE6E; /* Verde medio */
+  background-color: #67ae6e; /* Verde medio */
   color: white;
   cursor: pointer;
   transition: background-color 0.25s, border-color 0.25s;
 }
 
 button:hover {
-  background-color: #328E6E; /* Verde oscuro */
+  background-color: #328e6e; /* Verde oscuro */
 }
 
 button:focus,
@@ -56,26 +56,15 @@ button:focus-visible {
   align-items: center;
   width: 100%;
   height: 60px;
-  background-color: #328E6E; /* Verde oscuro */
+  background-color: #328e6e; /* Verde oscuro */
   position: fixed;
   top: 0;
   z-index: 1000;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
-.main-container {
-  display: flex;
-  flex-direction: row; /* Coloca los contenedores uno al lado del otro */
-  width: 100%;
-  height: calc(100vh - 60px); /* Resta la altura del navbar (60px) */
-  margin-top: 60px; /* Asegura que el contenedor comience debajo del navbar */
-  overflow: hidden; /* Evita desbordamientos */
-  box-sizing: border-box;
-  background-color: #213547;
-}
-
 .txt1 {
-  background-color: #90C67C; /* Verde claro */
+  background-color: #90c67c; /* Verde claro */
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -84,33 +73,53 @@ button:focus-visible {
   padding: 20px;
   box-sizing: border-box;
   overflow-y: auto; /* Habilita el scroll vertical si es necesario */
-
 }
 
-.info-container {
-  background-color: #E1EEBC; /* Verde pastel */
-  flex-grow: 1; /* Ocupa el resto del ancho disponible */
+/* Contenedor principal */
+.main-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: stretch;
+  gap: 20px; /* Espaciado entre los contenedores */
   padding: 20px;
-  box-sizing: border-box;
-  overflow-y: auto; /* Habilita el scroll vertical si es necesario */
+  margin-top: 80px; /* Espacio para la barra de navegación */
 }
 
+/* Contenedor del formulario (izquierda) */
 .form-container {
-  background-color: #ffffff; /* Fondo blanco */
+  flex: none; /* Evita que el contenedor cambie de tamaño */
+  width: 45%; /* Tamaño fijo para el formulario */
+  min-width: 300px; /* Asegura que no se haga demasiado estrecho */
+  max-width: 400px; /* Limita el ancho máximo */
   padding: 20px;
-  border-radius: 15px; /* Bordes redondeados */
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Sombra */
-  width: 90%;
-  max-width: 400px;
-  margin: 20px auto;
-  text-align: left;
+  background-color: #ffffff; /* Fondo blanco */
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
+/* Contenedor de resultados (derecha) */
+.info-container {
+  flex: none; /* Evita que el contenedor cambie de tamaño */
+  /* Tamaño fijo para los resultados */
+  min-width: 300px; /* Asegura que no se haga demasiado estrecho */
+  width: 850px; /* Limita el ancho máximo */
+  padding: 20px;
+  background-color: #f9f9f9; /* Fondo claro */
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  overflow-y: auto; /* Permite desplazamiento si el contenido es muy largo */
+  max-height: 115vh; /* Limita la altura máxima */
+}
+
+/* Estilo para el formulario */
 form label {
   display: block;
   margin-bottom: 8px;
   font-weight: bold;
-  color: #328E6E; /* Verde oscuro */
+  color: #328e6e; /* Verde oscuro */
 }
 
 form input,
@@ -124,19 +133,21 @@ form select {
 }
 
 form button {
-  background-color: #67AE6E; /* Verde medio */
+  background-color: #67ae6e; /* Verde medio */
   color: white;
   padding: 10px 15px;
   border: none;
   border-radius: 8px;
   cursor: pointer;
   width: 100%;
-  margin-top: 30px; /* Agrega un espacio de 20px encima del botón */
+  margin-top: 30px; /* Espaciado encima del botón */
 }
 
 form button:hover {
-  background-color: #328E6E; /* Verde oscuro */
+  background-color: #328e6e; /* Verde oscuro */
 }
+
+/* Prefijo de entrada */
 .input-group {
   display: flex;
   align-items: stretch; /* Asegura que ambos elementos tengan la misma altura */
@@ -145,25 +156,78 @@ form button:hover {
 
 .input-prefix {
   background-color: #f0f0f0;
-  padding: 0 10px; /* Ajusta el padding horizontal */
+  padding: 0 10px;
   border: 1px solid #ccc;
   border-radius: 8px 0 0 8px;
   font-weight: bold;
-  color: #328E6E; /* Verde oscuro */
+  color: #328e6e; /* Verde oscuro */
   display: flex;
-  align-items: center; /* Centra el texto verticalmente */
-  justify-content: center; /* Centra el texto horizontalmente */
-  height: 100%; /* Asegura que el prefijo tenga la misma altura que el input */
-  box-sizing: border-box; /* Incluye el padding y el borde en el tamaño total */
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  box-sizing: border-box;
 }
 
 .input-group input {
   flex: 1;
-  padding: 0 10px; /* Ajusta el padding interno */
+  padding: 0 10px;
   border: 1px solid #ccc;
   border-radius: 0 8px 8px 0;
   box-sizing: border-box;
-  height: 100%; /* Asegura que el campo de entrada tenga la misma altura que el prefijo */
-  font-size: 16px; /* Asegura que el tamaño del texto sea consistente */
-  line-height: normal; /* Asegura que el texto no afecte la altura */
+  height: 100%;
+  font-size: 16px;
+  line-height: normal;
+}
+/* Contenedor para las gráficas */
+.graph-container {
+  display: flex;
+  flex-wrap: wrap; /* Permite que las gráficas se ajusten en varias filas si no hay suficiente espacio */
+  justify-content: space-between; /* Espaciado entre las gráficas */
+  gap: 20px; /* Espaciado entre las gráficas */
+  margin-top: 20px; /* Espaciado superior */
+}
+
+/* Estilo para cada gráfica */
+.graph {
+  flex: 1 1 calc(50% - 20px); /* Ocupa el 50% del ancho disponible menos el espacio del gap */
+  max-width: 400px; /* Limita el ancho máximo de cada gráfica */
+  min-width: 300px; /* Asegura que no se haga demasiado estrecha */
+  height: 300px; /* Altura fija para las gráficas */
+  background-color: #ffffff; /* Fondo blanco */
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  padding: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.gauge-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  max-width: 100%; /* ← Mejor para adaptarse al layout */
+  margin: 20px auto;
+  background-color: #ffffff;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+}
+
+.gauge-labels {
+  display: flex;
+  justify-content: space-between; /* Espaciado uniforme entre las etiquetas */
+  width: 100%; /* Asegura que ocupen todo el ancho del contenedor */
+  margin-top: 20px; /* Espaciado superior */
+}
+
+.gauge-labels span {
+  font-size: 16px; /* Tamaño de la fuente */
+  font-weight: bold;
+  margin: 0 10px; /* Espaciado horizontal entre las etiquetas */
+  text-align: center; /* Centrar el texto */
 }
