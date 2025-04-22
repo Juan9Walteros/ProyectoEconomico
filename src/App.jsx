@@ -11,6 +11,7 @@ import {
 } from "chart.js";
 import Header from "./assets/components/Header";
 import Gauge from "react-gauge-component";
+import ChatBot from "./assets/components/ChatBot"; // Asegúrate de que la ruta sea correcta
 
 // Registrar componentes de Chart.js
 ChartJS.register(
@@ -323,8 +324,10 @@ function App() {
           ) : (
             <p>{resultado?.error || "Ingresa los datos para evaluar."}</p>
           )}
+          <ChatBot />
         </aside>
       </div>
+      <ChatBot />
     </div>
   );
 }
