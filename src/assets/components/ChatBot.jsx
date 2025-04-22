@@ -40,14 +40,12 @@ function ChatBot() {
     ) {
       return "La cartera se refiere a las cuentas por cobrar de una empresa, es decir, el dinero que aún no ha sido recibido por ventas a crédito.";
     }
-
     if (
       input.includes("qué son activos") ||
       input.includes("valor en activos")
     ) {
       return "Los activos representan todo lo que posee la empresa que tiene valor económico, como maquinaria, edificios o dinero.";
     }
-
     if (input.includes("qué son deudas") || input.includes("valor deudas")) {
       return "Las deudas son obligaciones financieras que la empresa debe pagar, como préstamos o créditos adquiridos.";
     }
