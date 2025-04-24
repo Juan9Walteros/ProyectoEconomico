@@ -1,4 +1,4 @@
-import React, { useState } from "react"; // Importar el archivo CSS
+import React, { useState } from "react";
 import "./ChatBot.css";
 
 function ChatBot() {
@@ -7,16 +7,106 @@ function ChatBot() {
     { sender: "bot", text: "¡Hola! ¿En qué te puedo ayudar?" },
   ]);
   const [input, setInput] = useState("");
+  const [collectingData, setCollectingData] = useState(false);
+  const [empresaData, setEmpresaData] = useState({
+    nombre: "",
+    ganancias: 0,
+    sector: "",
+    empleados: 0,
+    activos: 0,
+    cartera: 0,
+    deudas: 0,
+  });
+  const [currentField, setCurrentField] = useState("");
 
   const handleToggle = () => setIsOpen(!isOpen);
 
-  const handleSend = () => {
+  const handleSend = async () => {
     if (!input.trim()) return;
 
     const newMessages = [...messages, { sender: "user", text: input }];
-    const respuesta = generarRespuesta(input);
-    if (respuesta) {
-      newMessages.push({ sender: "bot", text: respuesta });
+    setMessages(newMessages);
+
+    if (collectingData) {
+      // Actualizar el campo actual con el valor ingresado
+      setEmpresaData((prevData) => ({
+        ...prevData,
+        [currentField]: isNaN(input) ? input : parseFloat(input),
+      }));
+
+      // Determinar el siguiente campo a solicitar
+      const fields = [
+        "nombre",
+        "ganancias",
+        "sector",
+        "empleados",
+        "activos",
+        "cartera",
+        "deudas",
+      ];
+      const nextFieldIndex = fields.indexOf(currentField) + 1;
+
+      if (nextFieldIndex < fields.length) {
+        setCurrentField(fields[nextFieldIndex]);
+        newMessages.push({
+          sender: "bot",
+          text: `Por favor, ingresa el valor para ${fields[nextFieldIndex]}:`,
+        });
+      } else {
+        // Enviar los datos al backend
+        try {
+          const response = await fetch("http://localhost:8000/process/", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify(empresaData),
+          });
+
+          if (response.ok) {
+            const result = await response.json();
+            newMessages.push({
+              sender: "bot",
+              text: `Análisis económico: El patrimonio es ${result.analisis_economico.patrimonio} y el estado es ${result.analisis_economico.estado}. Si de seas ver las graficas por favor ingresa los datos en el formulario.`,
+            });
+          } else {
+            newMessages.push({
+              sender: "bot",
+              text: "Hubo un error al procesar los datos. Por favor, intenta nuevamente.",
+            });
+          }
+        } catch (error) {
+          newMessages.push({
+            sender: "bot",
+            text: "No se pudo conectar con el servidor. Verifica tu conexión.",
+          });
+        }
+
+        // Finalizar la recopilación de datos
+        setCollectingData(false);
+        setCurrentField("");
+        setEmpresaData({
+          nombre: "",
+          ganancias: 0,
+          sector: "",
+          empleados: 0,
+          activos: 0,
+          cartera: 0,
+          deudas: 0,
+        });
+      }
+    } else if (input.toLowerCase().includes("ingresar datos")) {
+      setCollectingData(true);
+      setCurrentField("nombre");
+      newMessages.push({
+        sender: "bot",
+        text: "Vamos a ingresar los datos de la empresa. Por favor, ingresa el nombre de la empresa:",
+      });
+    } else {
+      const respuesta = generarRespuesta(input);
+      if (respuesta) {
+        newMessages.push({ sender: "bot", text: respuesta });
+      }
     }
 
     setMessages(newMessages);

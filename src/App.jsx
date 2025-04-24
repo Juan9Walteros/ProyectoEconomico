@@ -271,7 +271,6 @@ function App() {
                     <Pie data={pieData} />
                   </div>
                 )}
-                /* Gráfico de barras */
                 {/* Gráfico de barras */}
                 {barData && (
                   <div className="graph">
